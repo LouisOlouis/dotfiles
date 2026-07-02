@@ -1,0 +1,217 @@
+/* ============================================================================
+   Catppuccin Abyss — shared/index.css
+   Injetado em TODOS os widgets do Seelen UI (sharedStyles).
+   Define a paleta completa como CSS custom properties + componentes
+   compartilhados (botões, inputs, popovers) via seletores [data-skin],
+   conforme convenção oficial: "shared styles must not override global bare
+   elements like body, button, or input directly".
+   ============================================================================ */
+
+:root {
+  /* ---- Hierarquia de profundidade (Abyss layer) ---- */
+  --ca-abyss: var(--ca-abyss, #08080d);
+  --ca-crust: var(--ca-crust, #0b0b12);
+  --ca-mantle: #11111b;
+  --ca-base: var(--ca-base, #181825);
+  --ca-surface0: var(--ca-surface0, #242430);
+  --ca-surface1: #313244;
+  --ca-surface2: #45475a;
+
+  /* ---- Texto ---- */
+  --ca-text: #cdd6f4;
+  --ca-subtext1: #bac2de;
+  --ca-subtext0: #a6adc8;
+
+  /* ---- Paleta Catppuccin completa ---- */
+  --ca-rosewater: #f5e0dc;
+  --ca-flamingo: #f2cdcd;
+  --ca-pink: #f5c2e7;
+  --ca-mauve: #cba6f7;
+  --ca-red: #f38ba8;
+  --ca-maroon: #eba0ac;
+  --ca-peach: #fab387;
+  --ca-yellow: #f9e2af;
+  --ca-green: #a6e3a1;
+  --ca-teal: #94e2d5;
+  --ca-sky: #89dceb;
+  --ca-sapphire: #74c7ec;
+  --ca-blue: #89b4fa;
+  --ca-lavender: #b4befe;
+
+  /* ---- Accent configurável (settings.yml -> --ca-accent) ---- */
+  --ca-accent: var(--ca-accent, #cba6f7);
+  --ca-accent-rgb: 203, 166, 247;
+
+  /* ---- Tokens de vidro / profundidade configuráveis ---- */
+  --ca-bg-opacity: var(--ca-bg-opacity, 88);
+  --ca-blur: var(--ca-blur, 24px);
+  --ca-radius: var(--ca-radius, 12);
+  --ca-border-width: var(--ca-border-width, 1);
+  --ca-font: var(--ca-font, "Segoe UI Variable");
+
+  /* ---- Derivados prontos para uso ---- */
+  --ca-border: rgba(203, 166, 247, 0.28);
+  --ca-border-strong: rgba(203, 166, 247, 0.55);
+  --ca-shadow: 0 8px 32px rgba(0, 0, 0, 0.55), 0 1px 0 rgba(203, 166, 247, 0.06) inset;
+  --ca-radius-sm: calc((var(--ca-radius) * 0.6) * 1px);
+  --ca-radius-md: calc(var(--ca-radius) * 1px);
+  --ca-radius-lg: calc((var(--ca-radius) * 1.4) * 1px);
+}
+
+/* ============================================================================
+   Popovers padrão (usados por: quick-settings, power-menu, bluetooth,
+   context menus do weg, flyout de notificações dentro da toolbar, etc.)
+   ============================================================================ */
+.slu-standard-popover {
+  background: rgba(24, 24, 37, 0.85); /* fallback para builds sem suporte a color-mix() */
+  background: color-mix(in srgb, var(--ca-base) calc(var(--ca-bg-opacity) * 1%), transparent);
+  backdrop-filter: blur(var(--ca-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--ca-blur)) saturate(150%);
+  border: calc(var(--ca-border-width) * 1px) solid var(--ca-border);
+  border-radius: var(--ca-radius-md);
+  box-shadow: var(--ca-shadow);
+  color: var(--ca-text);
+  font-family: var(--ca-font), "Segoe UI", sans-serif;
+  overflow: hidden;
+}
+
+/* ============================================================================
+   Botões (data-skin)
+   ============================================================================ */
+button[data-skin="solid"] {
+  background: var(--ca-accent);
+  color: var(--ca-abyss);
+  border: none;
+  border-radius: var(--ca-radius-sm);
+  font-weight: 600;
+  padding: 6px 14px;
+  transition: filter 0.15s ease, transform 0.1s ease;
+}
+button[data-skin="solid"]:hover {
+  filter: brightness(1.08);
+}
+button[data-skin="solid"]:active {
+  transform: scale(0.97);
+}
+
+button[data-skin="default"] {
+  background: var(--ca-surface0);
+  color: var(--ca-text);
+  border: 1px solid var(--ca-surface2);
+  border-radius: var(--ca-radius-sm);
+  padding: 6px 14px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+button[data-skin="default"]:hover {
+  background: var(--ca-surface1);
+  border-color: var(--ca-accent);
+}
+
+button[data-skin="transparent"] {
+  background: transparent;
+  color: var(--ca-subtext1);
+  border: none;
+  border-radius: var(--ca-radius-sm);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+button[data-skin="transparent"]:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ca-text);
+}
+
+/* ============================================================================
+   Inputs / Selects / Switches / Sliders (data-skin)
+   ============================================================================ */
+input[type="text"][data-skin="default"],
+input[type="search"][data-skin="default"],
+select[data-skin="default"] {
+  background: var(--ca-mantle);
+  color: var(--ca-text);
+  border: 1px solid var(--ca-surface2);
+  border-radius: var(--ca-radius-sm);
+  padding: 6px 10px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+input[type="text"][data-skin="default"]:focus,
+input[type="search"][data-skin="default"]:focus,
+select[data-skin="default"]:focus {
+  border-color: var(--ca-accent);
+  box-shadow: 0 0 0 3px rgba(var(--ca-accent-rgb), 0.18);
+}
+
+input[type="checkbox"][data-skin="switch"] {
+  appearance: none;
+  width: 36px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--ca-surface2);
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+input[type="checkbox"][data-skin="switch"]::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--ca-text);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+input[type="checkbox"][data-skin="switch"]:checked {
+  background: var(--ca-accent);
+}
+input[type="checkbox"][data-skin="switch"]:checked::before {
+  transform: translateX(16px);
+  background: var(--ca-abyss);
+}
+
+input[type="range"][data-skin="flat"] {
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--ca-surface2);
+  outline: none;
+}
+input[type="range"][data-skin="flat"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--ca-accent);
+  box-shadow: 0 0 0 3px rgba(var(--ca-accent-rgb), 0.22);
+  cursor: pointer;
+}
+
+/* ============================================================================
+   Scrollbars — consistentes em todos os widgets
+   ============================================================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ca-surface2);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ca-accent);
+}
+
+/* ============================================================================
+   Focus ring genérico e seleção de texto
+   ============================================================================ */
+:focus-visible {
+  outline: 2px solid var(--ca-accent);
+  outline-offset: 2px;
+}
+::selection {
+  background: rgba(var(--ca-accent-rgb), 0.35);
+  color: var(--ca-text);
+}

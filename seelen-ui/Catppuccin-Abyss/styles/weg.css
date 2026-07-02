@@ -1,0 +1,214 @@
+/* ============================================================================
+   Catppuccin Abyss — styles/weg.css
+   Widget: @seelen/weg (Dock / Taskbar)
+
+   Reescrito a partir do DOM REAL renderizado (inspecionado via Ctrl+Shift+I),
+   não apenas da documentação. Estrutura real confirmada:
+
+   .taskbar.<top|bottom|left|right>.<horizontal|vertical>
+     └─ .bg-layers                      (10 camadas decorativas — desligadas)
+     └─ .weg-items-container
+          └─ .weg-items
+               └─ .weg-item-drag-container (wrapper do dnd-kit, 1 por item)
+                    └─ .weg-item-overlay (apps normais) ou direto .weg-item (start)
+                         └─ .weg-item                         <- fundo real do botão
+                              ├─ .slu-icon-outer.weg-item-icon
+                              ├─ .weg-item-open-sign[-active][-focused]
+                              └─ (para mídia) .media-session-container > .media-session
+                                     (esta tem "style=" INLINE calculado via JS a
+                                     partir do brilho médio da capa — precisa !important)
+
+   IMPORTANTE: NÃO existe .bg-layer-2 dentro de .weg-item nesta versão — o fundo
+   do botão é aplicado direto em .weg-item via background-color.
+   ============================================================================ */
+
+/* Camadas decorativas de fundo (gradiente/blur atrás do dock) — desligadas.
+   Controlamos 100% do visual via .taskbar diretamente. */
+.taskbar .bg-layers {
+  display: none;
+}
+
+/* ---- Painel principal do dock ---- */
+.taskbar {
+  background-color: rgba(8, 8, 13, 0.85); /* fallback para builds sem suporte a color-mix() */
+  background-color: color-mix(in srgb, var(--ca-abyss) calc(var(--ca-bg-opacity) * 1%), transparent);
+  backdrop-filter: blur(var(--ca-blur)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--ca-blur)) saturate(140%);
+  border-radius: var(--ca-radius-lg);
+  /* Borda + sombra via box-shadow (não-inset para a sombra, inset para a borda):
+     box-shadow NUNCA altera o tamanho real da caixa no layout, diferente de
+     `border`/`padding`. Isso é essencial aqui porque o Seelen UI reserva o
+     espaço da appbar no sistema operacional com base no tamanho configurado
+     dos itens (--config-item-size/padding/margin), e não no CSS deste tema.
+     Se a caixa visual for maior que essa reserva, as janelas "vazam" por
+     trás do dock — foi exatamente o que estava acontecendo com o
+     `border` + `padding` extras que havia aqui antes. */
+  box-shadow:
+    inset 0 0 0 calc(var(--ca-border-width) * 1px) var(--ca-border-strong),
+    0 8px 32px rgba(0, 0, 0, 0.55);
+}
+
+.taskbar .weg-items-container {
+  border-radius: var(--ca-radius-lg);
+}
+
+/* ---- Itens do dock ---- */
+.weg-item {
+  background-color: transparent;
+  box-shadow: none;
+  border: 1px solid transparent;
+  border-radius: var(--ca-radius-sm);
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+/* Hover -> Surface1 */
+.weg-item:hover {
+  background-color: var(--ca-surface1);
+}
+.weg-item:active {
+  transform: scale(0.9);
+}
+
+/* Janela aberta -> Surface2. O indicador "open-sign" fica dentro do MESMO
+   .weg-item, então usamos :has() para colorir o botão a partir do estado
+   do seu próprio filho. */
+.weg-item:has(.weg-item-open-sign-active) {
+  background-color: var(--ca-surface2);
+}
+
+/* Janela focada -> além do Surface2, borda em Mauve */
+.weg-item:has(.weg-item-open-sign-focused) {
+  border-color: var(--ca-border-strong);
+}
+
+/* Ícone do app */
+.weg-item-icon {
+  filter: grayscale(0%) opacity(1) saturate(1.05);
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+.weg-item:hover .weg-item-icon {
+  transform: translateY(-1px) scale(1.05);
+}
+
+/* Indicador de "aberto" (pontinho) */
+.weg-item-open-sign {
+  background-color: var(--ca-subtext0);
+  border-radius: 999px;
+}
+.weg-item-open-sign-focused {
+  background-color: var(--ca-accent);
+  box-shadow: 0 0 6px rgba(var(--ca-accent-rgb), 0.7);
+}
+
+/* ---- Separadores ---- */
+.weg-separator {
+  opacity: 0.6;
+}
+.horizontal .weg-separator.weg-separator-1 {
+  border-left: 1px solid var(--ca-surface2);
+}
+.horizontal .weg-separator.weg-separator-2 {
+  border-right: 1px solid var(--ca-surface2);
+}
+.vertical .weg-separator.weg-separator-1 {
+  border-top: 1px solid var(--ca-surface2);
+}
+.vertical .weg-separator.weg-separator-2 {
+  border-bottom: 1px solid var(--ca-surface2);
+}
+
+/* ============================================================================
+   Widget de mídia embutido no dock ("Nothing is playing")
+   O elemento .media-session recebe background-color e a .media-session-title
+   recebe color via ATRIBUTO style="" INLINE, calculado em JS a partir do brilho
+   médio da capa do álbum (função Eh() do bundle). Isso tem prioridade máxima
+   no CSS — só é vencido com !important.
+   ============================================================================ */
+.weg-item.media-session-container {
+  background-color: transparent;
+  box-shadow: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+.media-session {
+  background-color: var(--ca-surface0) !important;
+}
+
+/* Thumbnail borrada de fundo (capa do álbum ampliada e desfocada) — reduzimos
+   a presença dela para não brigar com a paleta do tema */
+.media-session-blurred-thumbnail-container {
+  opacity: 0.28;
+}
+.media-session-blurred-thumbnail {
+  filter: blur(24px) saturate(140%);
+}
+
+/* Capa do álbum em miniatura, à esquerda */
+.media-session-thumbnail-container {
+  border-radius: var(--ca-radius-sm);
+}
+.media-session-thumbnail {
+  border-radius: var(--ca-radius-sm);
+  border: 1px solid var(--ca-surface2);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Título da faixa — cor sempre vem inline (JS calcula contraste), por isso
+   !important é obrigatório aqui */
+.media-session-title {
+  color: var(--ca-text) !important;
+  font-weight: 600;
+}
+.media-session-title-default {
+  color: var(--ca-subtext0) !important;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* Botões de play/pause/skip (aparecem só quando há mídia tocando) */
+.media-session-actions button {
+  background-color: transparent;
+  border-radius: 999px;
+  transition: background-color 0.15s ease;
+}
+.media-session-actions button:hover {
+  background-color: rgba(var(--ca-accent-rgb), 0.18);
+}
+
+/* Estado "tocando" -> leve realce em Mauve na borda do card */
+.weg-item.media-session-container:hover .media-session {
+  box-shadow: inset 0 0 0 1px rgba(var(--ca-accent-rgb), 0.35) !important;
+}
+
+/* ============================================================================
+   Preview / tooltip / menu de contexto (popovers padrão do tema)
+   ============================================================================ */
+[class*="weg-item-preview"],
+[class*="weg-tooltip"],
+[class*="context-menu"] {
+  background: var(--ca-base);
+  border: 1px solid var(--ca-border);
+  border-radius: var(--ca-radius-md);
+  box-shadow: var(--ca-shadow);
+  color: var(--ca-text);
+}
+[class*="context-menu"] [class*="item"]:hover {
+  background: var(--ca-surface1);
+}
+
+/* ============================================================================
+   Cobertura genérica
+   ============================================================================ */
+.taskbar button {
+  color: var(--ca-subtext1);
+}
+.taskbar svg {
+  color: inherit;
+}
+.taskbar input[type="text"],
+.taskbar input[type="search"] {
+  background: var(--ca-mantle);
+  color: var(--ca-text);
+  border: 1px solid var(--ca-surface2);
+}

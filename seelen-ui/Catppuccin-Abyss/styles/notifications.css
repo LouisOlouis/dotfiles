@@ -1,0 +1,97 @@
+/* ============================================================================
+   Catppuccin Abyss — styles/notifications.css
+   ⚠️ ARQUIVO DE REFERÊNCIA / ORGANIZAÇÃO
+
+   O Seelen UI v2.7 NÃO expõe um widget ID próprio para notificações
+   (não existe "@seelen/notifications" no styles: do metadata.yml). Os toasts
+   e o centro de notificações renderizam dentro do webview do
+   "@seelen/fancy-toolbar", junto com o resto da toolbar.
+
+   Por isso o CSS abaixo é o mesmo já mesclado na SEÇÃO 2 de
+   styles/fancy-toolbar.css (que é o arquivo realmente carregado pelo
+   metadata.yml). Mantemos esta cópia separada apenas para você editar/ler
+   com mais clareza — qualquer alteração feita aqui também deve ser refletida
+   manualmente em fancy-toolbar.css para ter efeito no tema.
+
+   Se uma futura versão do Seelen UI expuser "@seelen/notifications" como
+   widget independente, basta:
+     1. Adicionar em metadata.yml:
+          "@seelen/notifications": !include styles/notifications.css
+     2. Remover a SEÇÃO 2 de fancy-toolbar.css para evitar duplicação.
+   ============================================================================ */
+
+[class*="notification-center"],
+[class*="notifications-panel"] {
+  background: var(--ca-base);
+  border: 1px solid var(--ca-border);
+  border-radius: var(--ca-radius-lg);
+  box-shadow: var(--ca-shadow);
+  backdrop-filter: blur(var(--ca-blur));
+  -webkit-backdrop-filter: blur(var(--ca-blur));
+  padding: 8px;
+}
+
+[class*="notification-toast"],
+[class*="notification-card"],
+[class*="notification-item"] {
+  background: var(--ca-surface0);
+  border: 1px solid var(--ca-surface2);
+  border-left: 3px solid var(--ca-accent);
+  border-radius: var(--ca-radius-md);
+  color: var(--ca-text);
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+[class*="notification-toast"]:hover,
+[class*="notification-card"]:hover,
+[class*="notification-item"]:hover {
+  background: var(--ca-surface1);
+  transform: translateY(-1px);
+}
+
+[class*="notification"] [class*="app-name"],
+[class*="notification"] [class*="title"] {
+  color: var(--ca-text);
+  font-weight: 600;
+}
+[class*="notification"] [class*="body"],
+[class*="notification"] [class*="content"] {
+  color: var(--ca-subtext1);
+}
+[class*="notification"] [class*="timestamp"] {
+  color: var(--ca-subtext0);
+  font-size: 0.85em;
+}
+
+[class*="notification"][class*="unread"]::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--ca-accent);
+  margin-right: 6px;
+  box-shadow: 0 0 6px rgba(var(--ca-accent-rgb), 0.7);
+}
+
+[class*="notification"] [class*="close"]:hover {
+  background: rgba(var(--ca-accent-rgb), 0.12);
+  color: var(--ca-red);
+  border-radius: 999px;
+}
+
+[class*="notification"] button {
+  border-radius: var(--ca-radius-sm);
+}
+
+.ft-bar [class*="notification-badge"],
+.ft-bar [class*="badge"] {
+  background: var(--ca-accent);
+  color: var(--ca-abyss);
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.7em;
+  padding: 1px 5px;
+}

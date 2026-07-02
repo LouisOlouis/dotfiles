@@ -1,0 +1,81 @@
+/* ============================================================================
+   Catppuccin Abyss — styles/task-switcher.css
+   Widget: @seelen/task-switcher
+   ============================================================================ */
+
+.task-switcher,
+[class*="task-switcher-container"] {
+  background-color: rgba(11, 11, 18, 0.85); /* fallback para builds sem suporte a color-mix() */
+  background-color: color-mix(in srgb, var(--ca-crust) calc(var(--ca-bg-opacity) * 1%), transparent);
+  backdrop-filter: blur(var(--ca-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--ca-blur)) saturate(150%);
+  border: calc(var(--ca-border-width) * 1px) solid var(--ca-border);
+  border-radius: var(--ca-radius-lg);
+  box-shadow: var(--ca-shadow);
+  padding: 14px;
+  gap: 10px;
+}
+
+/* Cada thumbnail de janela */
+[class*="task-switcher-item"],
+[class*="switcher-item"] {
+  background-color: var(--ca-surface0);
+  border: 2px solid transparent;
+  border-radius: var(--ca-radius-md);
+  overflow: hidden;
+  transition: border-color 0.12s ease, transform 0.12s ease, background-color 0.12s ease;
+}
+
+[class*="task-switcher-item"]:hover,
+[class*="switcher-item"]:hover {
+  background-color: var(--ca-surface1);
+  transform: translateY(-2px);
+}
+
+/* Item em foco durante a navegação (setas / Tab contínuo) -> destaque em Mauve */
+[class*="task-switcher-item"][class*="focused"],
+[class*="task-switcher-item"][data-focused="true"],
+[class*="switcher-item"][class*="active"] {
+  border-color: var(--ca-accent);
+  background-color: var(--ca-surface2);
+  box-shadow: 0 0 0 1px var(--ca-border-strong), 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* Miniatura da janela em si */
+[class*="task-switcher-item"] [class*="thumbnail"],
+[class*="switcher-item"] img {
+  border-radius: calc(var(--ca-radius-md) - 4px);
+  background-color: var(--ca-mantle);
+}
+
+/* Ícone do app sobreposto na miniatura */
+[class*="task-switcher-item"] [class*="icon"] {
+  background: var(--ca-abyss);
+  border-radius: 6px;
+  padding: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Título da janela / app */
+[class*="task-switcher-item"] [class*="title"],
+[class*="switcher-item"] [class*="name"] {
+  color: var(--ca-text);
+  font-weight: 500;
+  font-size: 0.85em;
+  padding: 6px 4px 2px;
+}
+
+[class*="task-switcher-item"] [class*="app-name"] {
+  color: var(--ca-subtext0);
+  font-size: 0.78em;
+}
+
+/* ============================================================================
+   Cobertura genérica
+   ============================================================================ */
+[class*="task-switcher"] button {
+  color: var(--ca-subtext1);
+}
+[class*="task-switcher"] svg {
+  color: inherit;
+}

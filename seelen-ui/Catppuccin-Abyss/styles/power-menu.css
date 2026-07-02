@@ -1,0 +1,132 @@
+/* ============================================================================
+   Catppuccin Abyss — styles/power-menu.css
+   Widget: @seelen/power-menu
+   ============================================================================ */
+
+/* A "tela de goodbye" (menu de energia / confirmação de logoff-sleep-restart-
+   shutdown) fica visivelmente mais translúcida que os outros painéis do tema
+   — usa 70% da opacidade configurada em --ca-bg-opacity, em vez do valor
+   cheio, para deixar o wallpaper/desktop por trás perceptível através do
+   vidro, como no comportamento original. */
+[class*="power-menu"] {
+  background-color: rgba(24, 24, 37, 0.62); /* fallback para builds sem suporte a color-mix() */
+  background-color: color-mix(in srgb, var(--ca-base) calc(var(--ca-bg-opacity) * 0.7%), transparent);
+  backdrop-filter: blur(calc(var(--ca-blur) * 1.15)) saturate(160%);
+  -webkit-backdrop-filter: blur(calc(var(--ca-blur) * 1.15)) saturate(160%);
+  border: calc(var(--ca-border-width) * 1px) solid var(--ca-border);
+  border-radius: var(--ca-radius-lg);
+  box-shadow: var(--ca-shadow);
+  color: var(--ca-text);
+  font-family: var(--ca-font), "Segoe UI", sans-serif;
+  padding: 16px;
+  gap: 8px;
+}
+
+/* O overlay que escurece o desktop atrás da tela de goodbye também precisa
+   ficar translúcido — sem isso, alguns builds do Seelen UI aplicam um
+   fundo praticamente opaco atrás do próprio card. */
+html:has([class*="power-menu"]) body,
+[class*="power-menu-overlay"],
+[class*="power-menu-backdrop"] {
+  background-color: rgba(8, 8, 13, 0.35) !important;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Botão genérico de ação de energia */
+[class*="power-menu"] button,
+[class*="power-option"] {
+  background: var(--ca-surface0);
+  color: var(--ca-text);
+  border: 1px solid var(--ca-surface2);
+  border-radius: var(--ca-radius-md);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+[class*="power-menu"] button:hover,
+[class*="power-option"]:hover {
+  background: var(--ca-surface1);
+  border-color: var(--ca-border-strong);
+}
+[class*="power-menu"] button:active,
+[class*="power-option"]:active {
+  transform: scale(0.98);
+  background: var(--ca-surface2);
+}
+
+/* Cores semânticas por ação, usando a paleta Catppuccin completa */
+[class*="power-option"][class*="lock"] svg,
+[class*="power-option"][class*="sign-out"] svg,
+[class*="power-option"][class*="signout"] svg {
+  color: var(--ca-blue);
+}
+
+[class*="power-option"][class*="sleep"] svg {
+  color: var(--ca-sapphire);
+}
+
+[class*="power-option"][class*="restart"] svg,
+[class*="power-option"][class*="reboot"] svg {
+  color: var(--ca-peach);
+}
+
+[class*="power-option"][class*="shutdown"] svg,
+[class*="power-option"][class*="power-off"] svg {
+  color: var(--ca-red);
+}
+
+[class*="power-option"][class*="hibernate"] svg {
+  color: var(--ca-lavender);
+}
+
+/* Estado de confirmação ("Tem certeza?") */
+[class*="power-menu"] [class*="confirm"] {
+  background: var(--ca-surface2);
+  border: 1px solid var(--ca-accent);
+  border-radius: var(--ca-radius-md);
+  padding: 10px;
+  color: var(--ca-text);
+}
+[class*="power-menu"] [class*="confirm"] button[class*="danger"],
+[class*="power-menu"] [class*="confirm"] button[class*="destructive"] {
+  background: var(--ca-red);
+  color: var(--ca-abyss);
+  border: none;
+  font-weight: 600;
+}
+[class*="power-menu"] [class*="confirm"] button[class*="danger"]:hover,
+[class*="power-menu"] [class*="confirm"] button[class*="destructive"]:hover {
+  filter: brightness(1.1);
+}
+
+/* Rótulo textual do botão */
+[class*="power-option"] [class*="label"] {
+  font-weight: 500;
+  color: var(--ca-text);
+}
+
+/* Cartão de usuário no topo do menu (avatar + nome) */
+[class*="power-menu"] [class*="user-card"] {
+  border-bottom: 1px solid var(--ca-surface2);
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  color: var(--ca-subtext1);
+}
+[class*="power-menu"] [class*="user-card"] [class*="avatar"] {
+  border-radius: 999px;
+  border: 2px solid var(--ca-accent);
+}
+
+/* ============================================================================
+   Cobertura genérica
+   ============================================================================ */
+[class*="power-menu"] svg {
+  color: inherit;
+}
+[class*="power-menu"] hr {
+  border-color: var(--ca-surface2);
+}

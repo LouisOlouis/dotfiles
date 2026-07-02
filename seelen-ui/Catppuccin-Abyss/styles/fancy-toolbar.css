@@ -1,0 +1,292 @@
+/* ============================================================================
+   Catppuccin Abyss — styles/fancy-toolbar.css
+   Widget: @seelen/fancy-toolbar
+
+   IMPORTANTE (arquitetura Seelen UI v2.7):
+   Notificações (toast/flyout) e o Media Module renderizam DENTRO do webview
+   da fancy-toolbar — não existe "@seelen/notifications" nem "@seelen/media"
+   como widget separado para tema. Por isso este arquivo é o merge real de:
+     • Barra e módulos genéricos          (seção 1)
+     • Notificações (../styles/notifications.css espelha esta seção)  (seção 2)
+     • Media Module                        (../styles/media-module.css espelha)  (seção 3)
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   SEÇÃO 1 — Barra e módulos genéricos
+   ---------------------------------------------------------------------------- */
+.ft-bar {
+  background-color: rgba(11, 11, 18, 0.85); /* fallback para builds sem suporte a color-mix() */
+  background-color: color-mix(in srgb, var(--ca-crust) calc(var(--ca-bg-opacity) * 1%), transparent);
+  backdrop-filter: blur(var(--ca-blur)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--ca-blur)) saturate(140%);
+  border-bottom: calc(var(--ca-border-width) * 1px) solid var(--ca-border);
+  box-shadow: var(--ca-shadow);
+  color: var(--ca-text);
+  font-family: var(--ca-font), "Segoe UI", sans-serif;
+}
+
+.ft-bar-item {
+  color: var(--ca-subtext1);
+  border-radius: var(--ca-radius-sm);
+  padding: 3px 8px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.ft-bar-item-clickable {
+  cursor: pointer;
+}
+.ft-bar-item-clickable:hover {
+  background-color: var(--ca-surface1);
+  color: var(--ca-text);
+  backdrop-filter: none;
+}
+.ft-bar-item-clickable:active {
+  background-color: var(--ca-surface2);
+}
+
+/* Módulo ativo / com popover aberto -> Surface2 + realce em Mauve */
+.ft-bar-item[data-active="true"],
+.ft-bar-item[aria-expanded="true"] {
+  background-color: var(--ca-surface2);
+  color: var(--ca-text);
+  box-shadow: inset 0 0 0 1px var(--ca-border-strong);
+}
+
+/* Indicadores de workspace / escritório virtual */
+.ft-bar [class*="workspace"] {
+  border-radius: var(--ca-radius-sm);
+  background-color: var(--ca-surface0);
+  color: var(--ca-subtext0);
+}
+.ft-bar [class*="workspace"][class*="active"],
+.ft-bar [class*="workspace"][data-active="true"] {
+  background-color: var(--ca-accent);
+  color: var(--ca-abyss);
+  font-weight: 600;
+}
+
+/* Ícones da bandeja do sistema */
+.ft-bar [class*="tray"] [class*="item"]:hover {
+  background-color: var(--ca-surface1);
+  border-radius: var(--ca-radius-sm);
+}
+
+/* Bateria: cor de acordo com nível (fallback seguro caso não haja classes de estado) */
+.ft-bar [class*="battery"] [class*="icon"] {
+  color: var(--ca-green);
+}
+.ft-bar [class*="battery"][class*="low"] [class*="icon"],
+.ft-bar [class*="battery"][data-low="true"] [class*="icon"] {
+  color: var(--ca-red);
+}
+
+/* Popovers abertos a partir da toolbar (rede, som, calendário, etc.) */
+.ft-bar-item [class*="popover"],
+.ft-bar [class*="ft-bar-item-content"] {
+  background: var(--ca-base);
+  border: 1px solid var(--ca-border);
+  border-radius: var(--ca-radius-md);
+  box-shadow: var(--ca-shadow);
+  color: var(--ca-text);
+}
+
+/* ----------------------------------------------------------------------------
+   SEÇÃO 2 — Notificações (toasts + centro de notificações / flyout)
+   Espelhado em styles/notifications.css
+   ---------------------------------------------------------------------------- */
+[class*="notification-center"],
+[class*="notifications-panel"] {
+  background: var(--ca-base);
+  border: 1px solid var(--ca-border);
+  border-radius: var(--ca-radius-lg);
+  box-shadow: var(--ca-shadow);
+  backdrop-filter: blur(var(--ca-blur));
+  -webkit-backdrop-filter: blur(var(--ca-blur));
+  padding: 8px;
+}
+
+[class*="notification-toast"],
+[class*="notification-card"],
+[class*="notification-item"] {
+  background: var(--ca-surface0);
+  border: 1px solid var(--ca-surface2);
+  border-left: 3px solid var(--ca-accent);
+  border-radius: var(--ca-radius-md);
+  color: var(--ca-text);
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+[class*="notification-toast"]:hover,
+[class*="notification-card"]:hover,
+[class*="notification-item"]:hover {
+  background: var(--ca-surface1);
+  transform: translateY(-1px);
+}
+
+[class*="notification"] [class*="app-name"],
+[class*="notification"] [class*="title"] {
+  color: var(--ca-text);
+  font-weight: 600;
+}
+[class*="notification"] [class*="body"],
+[class*="notification"] [class*="content"] {
+  color: var(--ca-subtext1);
+}
+[class*="notification"] [class*="timestamp"] {
+  color: var(--ca-subtext0);
+  font-size: 0.85em;
+}
+
+/* Indicador de não lida */
+[class*="notification"][class*="unread"]::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--ca-accent);
+  margin-right: 6px;
+  box-shadow: 0 0 6px rgba(var(--ca-accent-rgb), 0.7);
+}
+
+/* Botão de fechar notificação */
+[class*="notification"] [class*="close"]:hover {
+  background: rgba(var(--ca-accent-rgb), 0.12);
+  color: var(--ca-red);
+  border-radius: 999px;
+}
+
+/* Ações rápidas dentro da notificação reaproveitam data-skin do shared/index.css */
+[class*="notification"] button {
+  border-radius: var(--ca-radius-sm);
+}
+
+/* Badge de contagem no ícone de sino da toolbar */
+.ft-bar [class*="notification-badge"],
+.ft-bar [class*="badge"] {
+  background: var(--ca-accent);
+  color: var(--ca-abyss);
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.7em;
+  padding: 1px 5px;
+}
+
+/* ----------------------------------------------------------------------------
+   SEÇÃO 3 — Media Module (widget de mídia embutido na toolbar)
+   Espelhado em styles/media-module.css
+   ---------------------------------------------------------------------------- */
+[class*="media-module"],
+[class*="media-widget"],
+[class*="media-player"] {
+  background: var(--ca-surface0);
+  border: 1px solid var(--ca-border);
+  border-radius: var(--ca-radius-lg);
+  padding: 10px;
+  color: var(--ca-text);
+  backdrop-filter: blur(var(--ca-blur));
+  -webkit-backdrop-filter: blur(var(--ca-blur));
+}
+
+[class*="media"] [class*="album-art"],
+[class*="media"] [class*="cover"] {
+  border-radius: var(--ca-radius-sm);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--ca-surface2);
+}
+
+[class*="media"] [class*="track-title"],
+[class*="media"] [class*="song-title"] {
+  color: var(--ca-text);
+  font-weight: 600;
+}
+[class*="media"] [class*="artist"],
+[class*="media"] [class*="subtitle"] {
+  color: var(--ca-subtext0);
+}
+
+/* Barra de progresso */
+[class*="media"] [class*="progress-track"],
+[class*="media"] [class*="progress-bar"] {
+  background: var(--ca-surface2);
+  border-radius: 999px;
+  height: 4px;
+  overflow: hidden;
+}
+[class*="media"] [class*="progress-fill"],
+[class*="media"] [class*="progress-value"] {
+  background: var(--ca-accent);
+  box-shadow: 0 0 6px rgba(var(--ca-accent-rgb), 0.5);
+}
+
+/* Controles (play/pause/skip) */
+[class*="media"] [class*="control"] button,
+[class*="media"] [class*="controls"] button {
+  background: transparent;
+  color: var(--ca-subtext1);
+  border-radius: 999px;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+[class*="media"] [class*="control"] button:hover,
+[class*="media"] [class*="controls"] button:hover {
+  background: var(--ca-surface1);
+  color: var(--ca-text);
+}
+
+/* Botão de play em destaque (Mauve sólido) */
+[class*="media"] [class*="play-button"],
+[class*="media"] [class*="control"][class*="primary"] {
+  background: var(--ca-accent);
+  color: var(--ca-abyss);
+}
+[class*="media"] [class*="play-button"]:hover {
+  filter: brightness(1.08);
+}
+
+/* Pulso sutil quando tocando (respeitando performance mode, tratado automaticamente
+   pelo Seelen UI ao desativar transições/animações) */
+[class*="media"][class*="playing"] [class*="album-art"] {
+  animation: ca-media-pulse 3s ease-in-out infinite;
+}
+@keyframes ca-media-pulse {
+  0%, 100% { box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5); }
+  50% { box-shadow: 0 4px 20px rgba(var(--ca-accent-rgb), 0.35); }
+}
+
+/* Slider de volume dentro do media module reaproveita data-skin=flat */
+[class*="media"] input[type="range"] {
+  accent-color: var(--ca-accent);
+}
+
+/* ============================================================================
+   Cobertura genérica — garante a paleta do tema em qualquer elemento da
+   toolbar/módulos/notificações/media ainda não coberto acima.
+   ============================================================================ */
+.ft-bar button {
+  color: var(--ca-subtext1);
+}
+.ft-bar svg {
+  color: inherit;
+}
+.ft-bar input[type="text"],
+.ft-bar input[type="search"] {
+  background: var(--ca-mantle);
+  color: var(--ca-text);
+  border: 1px solid var(--ca-surface2);
+}
+.ft-bar input[type="range"] {
+  accent-color: var(--ca-accent);
+}
+.ft-bar hr,
+.ft-bar [class*="divider"],
+.ft-bar [class*="separator"] {
+  border-color: var(--ca-surface2);
+  background-color: var(--ca-surface2);
+}

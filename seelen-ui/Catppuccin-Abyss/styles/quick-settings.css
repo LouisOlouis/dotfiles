@@ -1,0 +1,255 @@
+/* ============================================================================
+   Catppuccin Abyss — styles/quick-settings.css
+   Widget: @seelen/quick-settings
+   ============================================================================ */
+
+[class*="quick-settings"] {
+  background-color: rgba(24, 24, 37, 0.85); /* fallback para builds sem suporte a color-mix() */
+  background-color: color-mix(in srgb, var(--ca-base) calc(var(--ca-bg-opacity) * 1%), transparent);
+  backdrop-filter: blur(var(--ca-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--ca-blur)) saturate(150%);
+  border: calc(var(--ca-border-width) * 1px) solid var(--ca-border);
+  border-radius: var(--ca-radius-lg);
+  box-shadow: var(--ca-shadow);
+  color: var(--ca-text);
+  font-family: var(--ca-font), "Segoe UI", sans-serif;
+  padding: 14px;
+}
+
+/* Cabeçalho (avatar, nome do usuário, atalho para configurações) */
+[class*="quick-settings"] [class*="header"] {
+  border-bottom: 1px solid var(--ca-surface2);
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+/* Sliders de volume / brilho */
+[class*="quick-settings"] [class*="slider-row"],
+[class*="quick-settings"] [class*="slider"] {
+  background: var(--ca-surface0);
+  border-radius: var(--ca-radius-md);
+  padding: 8px 10px;
+  margin-bottom: 8px;
+}
+[class*="quick-settings"] input[type="range"] {
+  accent-color: var(--ca-accent);
+}
+
+/* Grade de tiles (Wi-Fi, Bluetooth, Modo Avião, Não Perturbe...) */
+[class*="quick-settings"] [class*="tile"],
+[class*="quick-settings"] [class*="toggle-button"] {
+  background: var(--ca-surface0);
+  color: var(--ca-subtext1);
+  border: 1px solid transparent;
+  border-radius: var(--ca-radius-md);
+  padding: 10px;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+[class*="quick-settings"] [class*="tile"]:hover,
+[class*="quick-settings"] [class*="toggle-button"]:hover {
+  background: var(--ca-surface1);
+  color: var(--ca-text);
+}
+
+/* Tile ativo (Wi-Fi conectado, Bluetooth ligado, etc.) -> Mauve sólido */
+[class*="quick-settings"] [class*="tile"][class*="active"],
+[class*="quick-settings"] [class*="tile"][data-active="true"],
+[class*="quick-settings"] [class*="toggle-button"][class*="active"],
+[class*="quick-settings"] [class*="toggle-button"][data-active="true"] {
+  background: var(--ca-accent);
+  color: var(--ca-abyss);
+  border-color: var(--ca-accent);
+  font-weight: 600;
+}
+
+[class*="quick-settings"] [class*="tile"] svg,
+[class*="quick-settings"] [class*="toggle-button"] svg {
+  color: inherit;
+}
+
+/* Lista de redes Wi-Fi / dispositivos Bluetooth */
+[class*="quick-settings"] [class*="device-list"] [class*="item"],
+[class*="quick-settings"] [class*="network-list"] [class*="item"] {
+  border-radius: var(--ca-radius-sm);
+  padding: 6px 8px;
+  transition: background-color 0.12s ease;
+}
+[class*="quick-settings"] [class*="device-list"] [class*="item"]:hover,
+[class*="quick-settings"] [class*="network-list"] [class*="item"]:hover {
+  background: var(--ca-surface1);
+}
+[class*="quick-settings"] [class*="device-list"] [class*="item"][class*="connected"],
+[class*="quick-settings"] [class*="network-list"] [class*="item"][class*="connected"] {
+  background: var(--ca-surface2);
+  color: var(--ca-accent);
+}
+
+/* Texto de força de sinal / status */
+[class*="quick-settings"] [class*="signal-strength"],
+[class*="quick-settings"] [class*="status"] {
+  color: var(--ca-subtext0);
+  font-size: 0.82em;
+}
+
+/* ============================================================================
+   Mixer de volume / microfone (painel "Default Multimedia Volume")
+   Cobre tanto classes específicas quanto, via :has(), qualquer contêiner que
+   envolva um <input type="range"> mesmo que o nome da classe mude entre
+   builds — garante que a cor do tema seja aplicada mesmo em elementos ainda
+   não nomeados explicitamente.
+   ============================================================================ */
+
+/* Título do painel ("Default Multimedia Volume") */
+[class*="quick-settings"] [class*="volume"][class*="title"],
+[class*="quick-settings"] [class*="mixer"] > [class*="title"],
+[class*="quick-settings"] [class*="session-name"] {
+  background: var(--ca-surface0);
+  border: 1px solid var(--ca-border);
+  border-radius: var(--ca-radius-lg);
+  padding: 12px 16px;
+  color: var(--ca-text);
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+/* Linha de cada dispositivo/sessão (ícone + slider + porcentagem) */
+[class*="quick-settings"] [class*="volume-row"],
+[class*="quick-settings"] [class*="volume-item"],
+[class*="quick-settings"] [class*="mic-row"],
+[class*="quick-settings"] [class*="device-row"],
+[class*="quick-settings"] div:has(> input[type="range"]) {
+  background: var(--ca-surface0);
+  border: 1px solid var(--ca-border);
+  border-radius: var(--ca-radius-lg);
+  padding: 10px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Ícone à esquerda (alto-falante / microfone) */
+[class*="quick-settings"] [class*="volume-row"] svg,
+[class*="quick-settings"] [class*="volume-item"] svg,
+[class*="quick-settings"] [class*="mic-row"] svg,
+[class*="quick-settings"] div:has(> input[type="range"]) svg,
+[class*="quick-settings"] div:has(> input[type="range"]) [class*="icon"] {
+  color: var(--ca-subtext1);
+  flex-shrink: 0;
+}
+
+/* Trilho e preenchimento do slider — cross-browser (Chromium/WebView2) */
+[class*="quick-settings"] input[type="range"] {
+  flex: 1;
+  accent-color: var(--ca-accent);
+  height: 4px;
+  border-radius: 999px;
+  background: var(--ca-surface2);
+}
+[class*="quick-settings"] input[type="range"]::-webkit-slider-runnable-track {
+  background: var(--ca-surface2);
+  border-radius: 999px;
+  height: 4px;
+}
+[class*="quick-settings"] input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: var(--ca-accent);
+  box-shadow: 0 0 0 3px rgba(var(--ca-accent-rgb), 0.22);
+  cursor: pointer;
+}
+
+/* Badge de porcentagem (24% / 100%) — largura fixa para nunca "quebrar" o
+   pill quando o valor muda de 1 para 3 dígitos, e cor 100% dentro da
+   paleta do tema (antes usava um cinza genérico fora do conjunto). */
+[class*="quick-settings"] [class*="volume-row"] [class*="value"],
+[class*="quick-settings"] [class*="volume-row"] [class*="percent"],
+[class*="quick-settings"] [class*="volume-item"] [class*="value"],
+[class*="quick-settings"] [class*="volume-item"] [class*="percent"],
+[class*="quick-settings"] [class*="mic-row"] [class*="value"],
+[class*="quick-settings"] div:has(> input[type="range"]) > span:last-child,
+[class*="quick-settings"] div:has(> input[type="range"]) > [class*="percentage"] {
+  flex-shrink: 0;
+  min-width: 46px;
+  text-align: center;
+  background: var(--ca-surface1);
+  border: 1px solid var(--ca-border);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 0.82em;
+  font-weight: 600;
+  color: var(--ca-text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================================
+   Barra inferior de ações (engrenagem = configurações, energia = power-menu)
+   "deixar a barra inferior com a cor do conjunto do tema"
+   ============================================================================ */
+[class*="quick-settings"] [class*="footer"],
+[class*="quick-settings"] [class*="actions"],
+[class*="quick-settings"] [class*="bottom-bar"],
+[class*="quick-settings"] > div:last-child:has(button) {
+  background-color: rgba(11, 11, 18, 0.85); /* fallback para builds sem suporte a color-mix() */
+  background-color: color-mix(in srgb, var(--ca-crust) calc(var(--ca-bg-opacity) * 1%), transparent);
+  border-top: 1px solid var(--ca-border);
+  border-radius: 0 0 var(--ca-radius-lg) var(--ca-radius-lg);
+  margin: 10px -14px -14px;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+[class*="quick-settings"] [class*="footer"] button,
+[class*="quick-settings"] [class*="actions"] button,
+[class*="quick-settings"] [class*="bottom-bar"] button,
+[class*="quick-settings"] > div:last-child:has(button) button {
+  background: transparent;
+  color: var(--ca-subtext1);
+  border: none;
+  border-radius: 999px;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+[class*="quick-settings"] [class*="footer"] button:hover,
+[class*="quick-settings"] [class*="actions"] button:hover,
+[class*="quick-settings"] [class*="bottom-bar"] button:hover,
+[class*="quick-settings"] > div:last-child:has(button) button:hover {
+  background: var(--ca-surface1);
+  color: var(--ca-text);
+}
+
+/* Botão de energia no rodapé fica em destaque (vermelho no hover), já que
+   abre a "tela de goodbye" */
+[class*="quick-settings"] [class*="footer"] [class*="power"]:hover,
+[class*="quick-settings"] [class*="actions"] [class*="power"]:hover,
+[class*="quick-settings"] > div:last-child:has(button) [class*="power"]:hover {
+  background: rgba(243, 139, 168, 0.16);
+  color: var(--ca-red);
+}
+
+/* ============================================================================
+   Cobertura genérica — captura qualquer botão, svg ou input ainda não
+   nomeado explicitamente dentro do quick-settings, para garantir que a
+   paleta do tema seja aplicada em tudo (regra de baixa especificidade,
+   sempre sobrescrita pelas regras específicas acima).
+   ============================================================================ */
+[class*="quick-settings"] button {
+  color: var(--ca-subtext1);
+}
+[class*="quick-settings"] svg {
+  color: inherit;
+}
+[class*="quick-settings"] hr {
+  border-color: var(--ca-surface2);
+}

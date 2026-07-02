@@ -1,0 +1,94 @@
+/* ============================================================================
+   Catppuccin Abyss — styles/media-module.css
+   ⚠️ ARQUIVO DE REFERÊNCIA / ORGANIZAÇÃO
+
+   Assim como notifications.css, o Media Module não tem um widget ID próprio
+   ("@seelen/media" não existe) — ele renderiza como módulo dentro do
+   "@seelen/fancy-toolbar" (e, quando usado como widget de área de trabalho
+   solto sobre o wallpaper, herda o mesmo webview/skin da toolbar).
+
+   O CSS abaixo é idêntico à SEÇÃO 3 já mesclada em styles/fancy-toolbar.css,
+   que é o arquivo efetivamente carregado pelo metadata.yml. Edite os dois
+   em conjunto para manter consistência.
+   ============================================================================ */
+
+[class*="media-module"],
+[class*="media-widget"],
+[class*="media-player"] {
+  background: var(--ca-surface0);
+  border: 1px solid var(--ca-border);
+  border-radius: var(--ca-radius-lg);
+  padding: 10px;
+  color: var(--ca-text);
+  backdrop-filter: blur(var(--ca-blur));
+  -webkit-backdrop-filter: blur(var(--ca-blur));
+}
+
+[class*="media"] [class*="album-art"],
+[class*="media"] [class*="cover"] {
+  border-radius: var(--ca-radius-sm);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--ca-surface2);
+}
+
+[class*="media"] [class*="track-title"],
+[class*="media"] [class*="song-title"] {
+  color: var(--ca-text);
+  font-weight: 600;
+}
+[class*="media"] [class*="artist"],
+[class*="media"] [class*="subtitle"] {
+  color: var(--ca-subtext0);
+}
+
+[class*="media"] [class*="progress-track"],
+[class*="media"] [class*="progress-bar"] {
+  background: var(--ca-surface2);
+  border-radius: 999px;
+  height: 4px;
+  overflow: hidden;
+}
+[class*="media"] [class*="progress-fill"],
+[class*="media"] [class*="progress-value"] {
+  background: var(--ca-accent);
+  box-shadow: 0 0 6px rgba(var(--ca-accent-rgb), 0.5);
+}
+
+[class*="media"] [class*="control"] button,
+[class*="media"] [class*="controls"] button {
+  background: transparent;
+  color: var(--ca-subtext1);
+  border-radius: 999px;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+[class*="media"] [class*="control"] button:hover,
+[class*="media"] [class*="controls"] button:hover {
+  background: var(--ca-surface1);
+  color: var(--ca-text);
+}
+
+[class*="media"] [class*="play-button"],
+[class*="media"] [class*="control"][class*="primary"] {
+  background: var(--ca-accent);
+  color: var(--ca-abyss);
+}
+[class*="media"] [class*="play-button"]:hover {
+  filter: brightness(1.08);
+}
+
+[class*="media"][class*="playing"] [class*="album-art"] {
+  animation: ca-media-pulse 3s ease-in-out infinite;
+}
+@keyframes ca-media-pulse {
+  0%, 100% { box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5); }
+  50% { box-shadow: 0 4px 20px rgba(var(--ca-accent-rgb), 0.35); }
+}
+
+[class*="media"] input[type="range"] {
+  accent-color: var(--ca-accent);
+}

@@ -1,0 +1,131 @@
+# ============================================================================
+# Catppuccin Abyss — metadata.yml
+# Tema para Seelen UI baseado em Catppuccin Mocha + camada extra de profundidade
+# (Abyss / Crust) abaixo do Mocha "Base" tradicional.
+#
+# Estrutura seguindo a Theme Guideline oficial do Seelen UI:
+# https://seelen.io/blog/seelen-ui-theme-guidelines
+# ============================================================================
+
+id: "@louis/catppuccin-abyss"
+
+metadata:
+  displayName: !extend i18n/display_name.yml
+  description: !extend i18n/description.yml
+  tags:
+    - dark
+    - catppuccin
+    - minimal
+    - elegant
+    - purple
+
+# AppTargetVersion deve refletir a versão estável mais recente conhecida do
+# Seelen UI no momento da criação (v2.7.1 — ver Releases no GitHub).
+appTargetVersion:
+  - 2
+  - 7
+  - 1
+
+# ----------------------------------------------------------------------------
+# Configurações expostas ao usuário no painel de Settings do Seelen UI.
+# Permitem ajustar o tema sem editar CSS.
+# ----------------------------------------------------------------------------
+settings:
+  - group:
+      header: "Cores"
+      items:
+        - syntax: <color>
+          name: --ca-accent
+          label: "Cor de destaque (Accent)"
+          description: "Usada em bordas, indicadores ativos e realces. Padrão: Mauve."
+          initialValue: "#CBA6F7"
+
+        - syntax: <color>
+          name: --ca-abyss
+          label: "Abyss (camada mais profunda)"
+          description: "Fundo do dock e da toolbar."
+          initialValue: "#08080D"
+
+        - syntax: <color>
+          name: --ca-crust
+          label: "Crust"
+          description: "Fundo secundário / bordas de contêineres."
+          initialValue: "#0B0B12"
+
+        - syntax: <color>
+          name: --ca-base
+          label: "Base"
+          description: "Fundo padrão de painéis e popovers."
+          initialValue: "#181825"
+
+        - syntax: <color>
+          name: --ca-surface0
+          label: "Surface0"
+          description: "Fundo de janelas flutuantes / cards."
+          initialValue: "#242430"
+
+  - group:
+      header: "Vidro e profundidade"
+      items:
+        - syntax: <number>
+          name: --ca-bg-opacity
+          label: "Opacidade do fundo"
+          description: "Transparência moderada dos painéis (0–100)."
+          initialValue: 88
+          min: 40
+          max: 100
+          step: 1
+
+        - syntax: <length>
+          name: --ca-blur
+          label: "Intensidade do blur"
+          initialValue: 24
+          initialValueUnit: px
+
+        - syntax: <number>
+          name: --ca-radius
+          label: "Raio das bordas"
+          initialValue: 12
+          min: 0
+          max: 24
+          step: 1
+
+        - syntax: <number>
+          name: --ca-border-width
+          label: "Espessura da borda"
+          initialValue: 1
+          min: 0
+          max: 3
+          step: 1
+
+  - group:
+      header: "Tipografia"
+      items:
+        - syntax: <string>
+          name: --ca-font
+          label: "Fonte principal"
+          initialValue: "JetBrainsMonoNerdFontPropo"
+          max: 60
+
+# ----------------------------------------------------------------------------
+# Estilos por widget. A chave é o ID real do widget no Seelen UI.
+# Notas de arquitetura (v2.7):
+#  - Notificações (toasts / flyout) e o Media Module renderizam DENTRO do
+#    webview do "@seelen/fancy-toolbar" — não existem widget IDs próprios
+#    "@seelen/notifications" ou "@seelen/media" para tema separado.
+#    Por isso o conteúdo de styles/notifications.css e styles/media-module.css
+#    é injetado dentro de styles/fancy-toolbar.css (ver comentários no arquivo).
+#    Os dois arquivos continuam presentes como partials organizados/legíveis,
+#    conforme a estrutura solicitada.
+# ----------------------------------------------------------------------------
+styles:
+  "@seelen/weg": !include styles/weg.css
+  "@seelen/fancy-toolbar": !include styles/fancy-toolbar.css
+  "@seelen/launcher": !include styles/launcher.css
+  "@seelen/task-switcher": !include styles/task-switcher.css
+  "@seelen/window-manager": !include styles/window-manager.css
+  "@seelen/quick-settings": !include styles/quick-settings.css
+  "@seelen/power-menu": !include styles/power-menu.css
+
+# Injetado em TODOS os widgets (scrollbars, popovers, botões data-skin, etc.)
+sharedStyles: !include shared/index.css

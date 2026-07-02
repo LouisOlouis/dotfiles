@@ -1,0 +1,148 @@
+/* ============================================================================
+   Catppuccin Abyss — styles/launcher.css
+   Widget: @seelen/launcher
+   ============================================================================ */
+
+.launcher {
+  background-color: rgba(36, 36, 48, 0.85); /* fallback para builds sem suporte a color-mix() */
+  background-color: color-mix(in srgb, var(--ca-surface0) calc(var(--ca-bg-opacity) * 1%), transparent);
+  backdrop-filter: blur(var(--ca-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--ca-blur)) saturate(150%);
+  border: calc(var(--ca-border-width) * 1px) solid var(--ca-border);
+  border-radius: var(--ca-radius-lg);
+  box-shadow: var(--ca-shadow);
+  color: var(--ca-text);
+  font-family: var(--ca-font), "Segoe UI", sans-serif;
+  padding: 12px;
+}
+
+/* Campo de busca */
+.launcher [class*="input"],
+.launcher input[type="text"],
+.launcher input[type="search"] {
+  background: var(--ca-mantle);
+  color: var(--ca-text);
+  border: 1px solid var(--ca-surface2);
+  border-radius: var(--ca-radius-md);
+  padding: 10px 14px;
+  font-size: 1.05em;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.launcher [class*="input"]:focus,
+.launcher input:focus {
+  border-color: var(--ca-accent);
+  box-shadow: 0 0 0 3px rgba(var(--ca-accent-rgb), 0.18);
+}
+
+/* Lista de resultados */
+.launcher [class*="results"],
+.launcher [class*="list"] {
+  margin-top: 10px;
+  gap: 2px;
+}
+
+.launcher-item {
+  border-radius: var(--ca-radius-sm);
+  padding: 8px 10px;
+  color: var(--ca-subtext1);
+  border-left: 3px solid transparent;
+  transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+
+/* Zebra sutil para leitura, mantendo a hierarquia Base/Surface0 */
+.launcher-item:nth-child(2n) {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Hover -> Surface1 */
+.launcher-item:hover {
+  background-color: var(--ca-surface1);
+  color: var(--ca-text);
+}
+
+/* Item selecionado (navegação por teclado) -> Surface2 + borda Mauve */
+.launcher-item[class*="selected"],
+.launcher-item[data-selected="true"],
+.launcher-item[aria-selected="true"] {
+  background-color: var(--ca-surface2);
+  border-left-color: var(--ca-accent);
+  color: var(--ca-text);
+}
+
+.launcher-item [class*="icon"] {
+  border-radius: 6px;
+}
+
+.launcher-item [class*="name"],
+.launcher-item [class*="title"] {
+  color: var(--ca-text);
+  font-weight: 500;
+}
+
+.launcher-item [class*="description"],
+.launcher-item [class*="path"],
+.launcher-item [class*="subtitle"] {
+  color: var(--ca-subtext0);
+  font-size: 0.85em;
+}
+
+/* Badges de categoria (App, Arquivo, Comando, Web...) usando cores Catppuccin */
+.launcher-item [class*="badge"] {
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-size: 0.72em;
+  font-weight: 600;
+}
+.launcher-item [class*="badge"][class*="app"] {
+  background: rgba(137, 180, 250, 0.18);
+  color: var(--ca-blue);
+}
+.launcher-item [class*="badge"][class*="file"] {
+  background: rgba(250, 179, 135, 0.18);
+  color: var(--ca-peach);
+}
+.launcher-item [class*="badge"][class*="command"] {
+  background: rgba(166, 227, 161, 0.18);
+  color: var(--ca-green);
+}
+.launcher-item [class*="badge"][class*="web"] {
+  background: rgba(148, 226, 213, 0.18);
+  color: var(--ca-teal);
+}
+
+/* Rodapé com atalhos de teclado */
+.launcher [class*="footer"],
+.launcher [class*="hints"] {
+  border-top: 1px solid var(--ca-surface2);
+  color: var(--ca-subtext0);
+  font-size: 0.8em;
+  padding-top: 8px;
+  margin-top: 8px;
+}
+.launcher [class*="footer"] kbd,
+.launcher [class*="hints"] kbd {
+  background: var(--ca-surface1);
+  border: 1px solid var(--ca-surface2);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: var(--ca-text);
+}
+
+/* ============================================================================
+   Cobertura genérica
+   ============================================================================ */
+.launcher button {
+  color: var(--ca-subtext1);
+  border-radius: var(--ca-radius-sm);
+}
+.launcher button:hover {
+  background: var(--ca-surface1);
+  color: var(--ca-text);
+}
+.launcher svg {
+  color: inherit;
+}
+.launcher hr {
+  border-color: var(--ca-surface2);
+}
