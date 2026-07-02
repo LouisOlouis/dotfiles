@@ -1,0 +1,63 @@
+{
+    "window.autoDetectColorScheme": true,
+    "workbench.preferredLightColorTheme": "Dark Modern",
+    "workbench.iconTheme": "catppuccin-mocha",
+    "editor.fontFamily": "'JetBrainsMonoNerdFontPropo','SF PRO Text'",
+    "editor.unicodeHighlight.nonBasicASCII": true,
+    "mssql.connectionGroups": [
+        {
+            "name": "ROOT",
+            "id": "ROOT"
+        }
+    ],
+    "files.autoSave": "afterDelay",
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "fiveServer.php.executable": "C:\\xampp\\php\\php.exe",
+    "fiveServer.php.ini": "C:\\xampp\\php\\php.ini",
+    "explorer.confirmDelete": false,
+    "claudeCode.preferredLocation": "panel",
+    "explorer.confirmDragAndDrop": false,
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
+    "git.ignoreRebaseWarning": true,
+    "gitlens.ai.model": "vscode",
+    "gitlens.ai.vscode.model": "copilotcli:claude-haiku-4.5",
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "editor.fontSize": 16,
+    "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
+    
+      // we try to make semantic highlighting look good
+    "editor.semanticHighlighting.enabled": true,
+      // prevent VSCode from modifying the terminal colors
+    "terminal.integrated.minimumContrastRatio": 1,
+      // make the window's titlebar use the workbench colors
+    "window.titleBarStyle": "custom",
+      // applicable if you use Go, this is an opt-in flag!
+    "gopls": {
+    "ui.semanticTokens": true
+    },
+    "json.schemaDownload.trustedDomains": {
+        "https://developer.microsoft.com/json-schemas/": true,
+        "https://json-schema.org/": true,
+        "https://json.schemastore.org/": true,
+        "https://raw.githubusercontent.com": true,
+        "https://raw.githubusercontent.com/devcontainers/spec/": true,
+        "https://raw.githubusercontent.com/microsoft/vscode/": true,
+        "https://schemastore.azurewebsites.net/": true,
+        "https://www.schemastore.org/": true
+    },
+    "catppuccin.colorOverrides": {
+      "mocha": {
+        "crust":  "#08080d",
+        "mantle": "#0b0b12",
+        "base":   "#11111b"
+      }
+    },
+    "lldb.suppressUpdateNotifications": true,
+    "security.workspace.trust.untrustedFiles": "open"
+}
