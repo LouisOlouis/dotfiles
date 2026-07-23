@@ -1,0 +1,262 @@
+/* ============================================================
+   Catppuccin Abyss — ags/style.css
+   Estilos globais: dock, notificações, launcher, powermenu
+   ============================================================ */
+
+/* ---- Paleta ---- */
+@define-color abyss    #08080D;
+@define-color crust    #0B0B12;
+@define-color mantle   #11111B;
+@define-color base     #181825;
+@define-color surface0 #242430;
+@define-color surface1 #313244;
+@define-color surface2 #45475A;
+@define-color text     #CDD6F4;
+@define-color subtext1 #BAC2DE;
+@define-color subtext0 #A6ADC8;
+@define-color mauve    #CBA6F7;
+@define-color blue     #89B4FA;
+@define-color green    #A6E3A1;
+@define-color red      #F38BA8;
+@define-color yellow   #F9E2AF;
+@define-color peach    #FAB387;
+@define-color teal     #94E2D5;
+@define-color sapphire #74C7EC;
+@define-color lavender #B4BEFE;
+
+* {
+    font-family: "JetBrainsMonoNerdFontPropo", "JetBrains Mono Nerd Font", monospace;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+/* ============================================================
+   DOCK
+   ============================================================ */
+.dock-outer {
+    background-color: alpha(@crust, 0.88);
+    border: 1px solid alpha(@mauve, 0.30);
+    border-radius: 20px;
+    padding: 8px 12px;
+}
+
+.dock-inner {
+    padding: 0;
+    background: transparent;
+}
+
+.dock-item {
+    background:    transparent;
+    border-radius: 14px;
+    padding:       6px;
+    border:        1px solid transparent;
+    transition:    all 0.18s ease;
+}
+.dock-item:hover {
+    background:   alpha(@surface1, 0.80);
+    border-color: alpha(@mauve, 0.25);
+}
+.dock-item.focused {
+    background:   alpha(@surface2, 0.90);
+    border-color: alpha(@mauve, 0.60);
+}
+.dock-item:active {
+    transform: scale(0.88);
+}
+
+.dock-icon {
+    -gtk-icon-size: 44px;
+    transition: transform 0.15s ease;
+}
+.dock-item:hover .dock-icon {
+    transform: translateY(-3px) scale(1.08);
+}
+
+/* Indicador de "aberto" */
+.dock-indicator {
+    min-width:  6px;
+    min-height: 6px;
+    border-radius: 999px;
+    background: transparent;
+    margin-top: 2px;
+    transition: all 0.2s ease;
+}
+.dock-indicator.running {
+    background: alpha(@subtext0, 0.80);
+    min-width: 6px;
+}
+.dock-indicator.focused {
+    background: @mauve;
+    min-width: 20px;
+    box-shadow: 0 0 6px alpha(@mauve, 0.70);
+}
+
+/* Separador entre fixos e dinâmicos */
+.dock-separator {
+    min-width:    1px;
+    min-height:   32px;
+    background:   alpha(@surface2, 0.70);
+    border-radius: 999px;
+    margin:       0 4px;
+}
+
+/* ============================================================
+   NOTIFICAÇÕES
+   ============================================================ */
+.notifications-container {
+    padding: 0;
+    background: transparent;
+}
+
+.notification-card {
+    background:    alpha(@base, 0.92);
+    border:        1px solid alpha(@mauve, 0.35);
+    border-left:   3px solid @mauve;
+    border-radius: 14px;
+    padding:       12px 14px;
+    min-width:     340px;
+    max-width:     380px;
+}
+.notification-card.blue     { border-left-color: @blue;   }
+.notification-card.red      { border-left-color: @red;    }
+.notification-card.mauve    { border-left-color: @mauve;  }
+
+.notif-icon {
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: 8px;
+    padding: 4px;
+    background: alpha(@surface0, 0.80);
+}
+.notif-icon.blue   { color: @blue;  }
+.notif-icon.mauve  { color: @mauve; }
+.notif-icon.red    { color: @red;   }
+.notif-icon-fallback { font-size: 22px; }
+
+.notif-app-name {
+    color: @subtext0;
+    font-size: 11px;
+    font-weight: 600;
+}
+.notif-title {
+    color: @text;
+    font-size: 13px;
+    font-weight: 700;
+}
+.notif-body {
+    color: @subtext1;
+    font-size: 12px;
+}
+.notif-close {
+    color: @subtext0;
+    background: transparent;
+    border-radius: 6px;
+    padding: 0 4px;
+    font-size: 14px;
+}
+.notif-close:hover {
+    color: @red;
+    background: alpha(@red, 0.15);
+}
+.notif-actions {
+    margin-top: 6px;
+}
+.notif-action-btn {
+    color: @mauve;
+    background: alpha(@mauve, 0.12);
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+}
+.notif-action-btn:hover {
+    background: alpha(@mauve, 0.28);
+}
+
+/* ============================================================
+   LAUNCHER
+   ============================================================ */
+.launcher-box {
+    background:    alpha(@base, 0.94);
+    border:        1px solid alpha(@mauve, 0.35);
+    border-radius: 18px;
+    padding:       16px;
+    min-width:     480px;
+}
+.launcher-search-row {
+    background:    alpha(@surface0, 0.70);
+    border-radius: 12px;
+    padding:       4px 12px;
+}
+.launcher-search-icon {
+    color:     @mauve;
+    font-size: 18px;
+    margin-right: 8px;
+}
+entry.launcher-entry {
+    background: transparent;
+    border: none;
+    color: @text;
+    font-size: 15px;
+    caret-color: @mauve;
+}
+entry.launcher-entry placeholder {
+    color: @subtext0;
+}
+
+.launcher-results {
+    margin-top: 4px;
+}
+.launcher-item {
+    background:    transparent;
+    border-radius: 12px;
+    padding:       8px 10px;
+    border:        1px solid transparent;
+    color:         @text;
+}
+.launcher-item:hover {
+    background:   alpha(@surface1, 0.75);
+    border-color: alpha(@mauve, 0.20);
+}
+.launcher-item-name {
+    color:       @text;
+    font-size:   13px;
+    font-weight: 600;
+}
+.launcher-item-desc {
+    color:     @subtext0;
+    font-size: 11px;
+}
+
+/* ============================================================
+   POWER MENU
+   ============================================================ */
+.powermenu-box {
+    background:    alpha(@base, 0.95);
+    border:        1px solid alpha(@mauve, 0.35);
+    border-radius: 18px;
+    padding:       18px;
+    min-width:     320px;
+}
+.powermenu-title {
+    color:       @subtext1;
+    font-size:   13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+.power-btn {
+    background:    alpha(@surface0, 0.70);
+    border-radius: 14px;
+    padding:       14px 16px;
+    border:        1px solid transparent;
+    color:         @text;
+    min-width:     56px;
+}
+.power-btn:hover           { background: alpha(@surface1, 0.90); }
+.power-btn.blue:hover      { border-color: @blue;   color: @blue;   }
+.power-btn.teal:hover      { border-color: @teal;   color: @teal;   }
+.power-btn.yellow:hover    { border-color: @yellow; color: @yellow; }
+.power-btn.red:hover       { border-color: @red;    color: @red;    background: alpha(@red, 0.15); }
+.power-btn.mauve:hover     { border-color: @mauve;  color: @mauve;  }
+.power-icon  { font-size: 22px; }
+.power-label { font-size: 11px; color: @subtext1; }

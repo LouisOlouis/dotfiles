@@ -1,0 +1,151 @@
+# ============================================================
+# Catppuccin Abyss — Pacotes Oficiais (pacman)
+# Instale com: sudo pacman -S --needed - < pacman.txt
+# ============================================================
+
+# --- Sistema base / Wayland ---
+wayland
+xorg-xwayland
+qt5-wayland
+qt6-wayland
+glfw-wayland
+
+# --- Hyprland e utils ---
+hyprland
+hyprpaper
+hyprlock
+hypridle
+hyprpicker
+xdg-desktop-portal-hyprland
+xdg-desktop-portal-gtk
+xdg-utils
+
+# --- Audio (PipeWire) ---
+pipewire
+pipewire-alsa
+pipewire-pulse
+pipewire-jack
+wireplumber
+pavucontrol
+playerctl
+
+# --- Bluetooth ---
+bluez
+bluez-utils
+blueman
+
+# --- Rede ---
+networkmanager
+network-manager-applet
+nm-connection-editor
+
+# --- Barra ---
+waybar
+otf-font-awesome
+
+# --- Terminal ---
+kitty
+
+# --- Shell ---
+zsh
+zsh-syntax-highlighting
+zsh-autosuggestions
+starship
+
+# --- Ferramentas de terminal ---
+eza
+bat
+fzf
+ripgrep
+fd
+zoxide
+htop
+btop
+fastfetch
+wget
+curl
+unzip
+tar
+gzip
+p7zip
+
+# --- Gerenciador de arquivos ---
+nautilus
+gvfs
+gvfs-mtp
+tumbler
+
+# --- Screenshots ---
+grim
+slurp
+
+# --- Clipboard ---
+wl-clipboard
+cliphist
+
+# --- GTK / Tema ---
+gtk3
+gtk4
+gnome-themes-extra
+adwaita-icon-theme
+papirus-icon-theme
+nwg-look
+
+# --- Qt ---
+qt5ct
+qt6ct
+
+# --- Fontes ---
+ttf-jetbrains-mono-nerd
+ttf-nerd-fonts-symbols
+noto-fonts
+noto-fonts-emoji
+noto-fonts-cjk
+ttf-liberation
+ttf-dejavu
+
+# --- Autenticação ---
+polkit-gnome
+
+# --- Notificações ---
+libnotify
+
+# --- Desenvolvimento: base ---
+git
+github-cli
+base-devel
+cmake
+ninja
+meson
+
+# --- Desenvolvimento: C/C++ ---
+gcc
+clang
+lldb
+gdb
+valgrind
+
+# --- Desenvolvimento: Python ---
+python
+python-pip
+python-virtualenv
+
+# --- Desenvolvimento: Node ---
+nodejs
+npm
+
+# --- Desenvolvimento: Rust ---
+rustup
+
+# --- Containers ---
+docker
+docker-compose
+
+# --- Outros utilitários ---
+brightnessctl
+upower
+acpi
+man-db
+man-pages
+reflector
+zram-generator

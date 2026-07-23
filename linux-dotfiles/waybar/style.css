@@ -1,0 +1,246 @@
+/* ============================================================
+   Catppuccin Abyss — waybar/style.css
+   Barra superior flutuante com glass effect
+   ============================================================ */
+
+@define-color abyss    #08080D;
+@define-color crust    #0B0B12;
+@define-color mantle   #11111B;
+@define-color base     #181825;
+@define-color surface0 #242430;
+@define-color surface1 #313244;
+@define-color surface2 #45475A;
+@define-color text     #CDD6F4;
+@define-color subtext1 #BAC2DE;
+@define-color subtext0 #A6ADC8;
+@define-color mauve    #CBA6F7;
+@define-color blue     #89B4FA;
+@define-color green    #A6E3A1;
+@define-color red      #F38BA8;
+@define-color yellow   #F9E2AF;
+@define-color peach    #FAB387;
+@define-color teal     #94E2D5;
+@define-color sapphire #74C7EC;
+@define-color sky      #89DCEB;
+@define-color lavender #B4BEFE;
+@define-color pink     #F5C2E7;
+
+* {
+    font-family: "JetBrainsMonoNerdFontPropo", "JetBrains Mono Nerd Font", monospace;
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+}
+
+/* ---- Janela principal ---- */
+window#waybar {
+    background-color: alpha(@crust, 0.88);
+    color: @text;
+    border: 1px solid alpha(@mauve, 0.30);
+    border-radius: 14px;
+    transition: background-color 0.3s ease;
+}
+
+/* ---- Seções ---- */
+.modules-left {
+    padding-left: 4px;
+}
+.modules-right {
+    padding-right: 4px;
+}
+
+/* ============================================================
+   LEFT — Arch + Workspaces
+   ============================================================ */
+
+/* Ícone do Arch */
+#custom-arch {
+    color: @mauve;
+    font-size: 18px;
+    padding: 0 14px;
+    margin: 4px 2px;
+    background-color: alpha(@mauve, 0.12);
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+#custom-arch:hover {
+    background-color: alpha(@mauve, 0.28);
+    color: @text;
+}
+
+/* Workspaces */
+#workspaces {
+    background-color: alpha(@surface0, 0.65);
+    border-radius: 10px;
+    margin: 4px 2px;
+    padding: 0 4px;
+}
+#workspaces button {
+    color: @subtext0;
+    background: transparent;
+    padding: 0 8px;
+    border-radius: 8px;
+    min-width: 32px;
+    font-size: 11px;
+    transition: all 0.2s ease;
+}
+#workspaces button:hover {
+    color: @text;
+    background-color: alpha(@surface2, 0.7);
+}
+#workspaces button.active {
+    color: @crust;
+    background-color: @mauve;
+    font-weight: 700;
+}
+#workspaces button.urgent {
+    color: @crust;
+    background-color: @red;
+}
+#workspaces button.occupied:not(.active) {
+    color: @subtext1;
+}
+#workspaces button.occupied:not(.active)::after {
+    content: "•";
+    color: @mauve;
+    margin-left: 2px;
+    font-size: 8px;
+}
+
+/* ============================================================
+   CENTER — Título da janela
+   ============================================================ */
+#window {
+    color: @subtext1;
+    font-size: 12px;
+    padding: 0 18px;
+    background-color: alpha(@surface0, 0.40);
+    border-radius: 10px;
+    margin: 4px 0;
+}
+#window:empty {
+    background-color: transparent;
+}
+
+/* ============================================================
+   RIGHT — Módulos
+   ============================================================ */
+
+/* Base de todos os módulos direitos */
+#cpu,
+#memory,
+#temperature,
+#network,
+#bluetooth,
+#pulseaudio,
+#battery,
+#clock,
+#custom-power {
+    padding: 0 11px;
+    margin: 4px 1px;
+    border-radius: 10px;
+    background-color: alpha(@surface0, 0.60);
+    transition: background-color 0.2s ease;
+}
+
+#cpu,
+#memory,
+#temperature,
+#network,
+#bluetooth,
+#pulseaudio,
+#battery,
+#custom-power {
+    color: @text;
+}
+
+/* Hover genérico */
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#network:hover,
+#bluetooth:hover,
+#pulseaudio:hover,
+#battery:hover,
+#clock:hover,
+#custom-power:hover {
+    background-color: alpha(@surface1, 0.85);
+}
+
+/* Cores individuais */
+#cpu            { color: @blue; }
+#cpu.high       { color: @red; background-color: alpha(@red, 0.15); }
+
+#memory         { color: @mauve; }
+#memory.critical { color: @red; }
+
+#temperature    { color: @peach; }
+#temperature.critical {
+    color: @crust;
+    background-color: @red;
+    animation: blink 1s linear infinite;
+}
+
+#network        { color: @teal; }
+#network.disconnected { color: @subtext0; }
+
+#bluetooth      { color: @sapphire; }
+#bluetooth.disabled { color: alpha(@subtext0, 0.5); }
+
+#pulseaudio     { color: @green; }
+#pulseaudio.muted { color: alpha(@subtext0, 0.6); }
+
+#battery        { color: @green; }
+#battery.charging { color: @green; }
+#battery.plugged  { color: @teal; }
+#battery.warning:not(.charging) { color: @yellow; }
+#battery.critical:not(.charging) {
+    color: @red;
+    background-color: alpha(@red, 0.18);
+    animation: blink 0.8s linear infinite;
+}
+
+/* Relógio — destaque maior */
+#clock {
+    color: @lavender;
+    font-weight: 600;
+    padding: 0 16px;
+    background-color: alpha(@surface0, 0.75);
+}
+
+/* Botão de power */
+#custom-power {
+    color: @red;
+    font-size: 15px;
+    padding: 0 12px;
+    margin-right: 0;
+}
+#custom-power:hover {
+    background-color: alpha(@red, 0.22);
+}
+
+/* ============================================================
+   Animações
+   ============================================================ */
+@keyframes blink {
+    to { color: alpha(@red, 0.45); }
+}
+
+/* ============================================================
+   Tooltip
+   ============================================================ */
+tooltip {
+    background-color: @base;
+    border: 1px solid alpha(@mauve, 0.40);
+    border-radius: 10px;
+    color: @text;
+    padding: 6px 12px;
+    font-size: 11px;
+}
+tooltip label {
+    color: @text;
+}

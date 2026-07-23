@@ -1,0 +1,42 @@
+# ============================================================
+# Catppuccin Abyss — Pacotes AUR
+# Instale com: yay -S --needed - < aur.txt
+# ============================================================
+
+# --- Hyprland extras ---
+hyprshot
+hyprutils
+hyprsunset
+grimblast-git
+
+# --- AGS (Aylur's Gtk Shell v1) ---
+aylurs-gtk-shell
+
+# --- Launcher ---
+walker-bin
+
+# --- Navegador ---
+zen-browser-bin
+
+# --- Tema Catppuccin GTK ---
+catppuccin-gtk-theme-mocha
+
+# --- Cursor ---
+bibata-cursor-theme
+
+# --- Fontes extras ---
+ttf-jetbrains-mono-nerd
+nerd-fonts-jetbrains-mono
+
+# --- Terminal extras ---
+lazygit
+lazydocker
+python-uv
+
+# --- Dev extras ---
+pnpm
+visual-studio-code-bin
+
+# --- Utilitários ---
+wlogout
+hyprland-qtutils

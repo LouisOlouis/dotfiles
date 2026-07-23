@@ -1,0 +1,112 @@
+# ============================================================
+# Catppuccin Abyss — starship.toml
+# ============================================================
+
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+[](fg:mauve)\
+$os\
+$username\
+[](bg:surface1 fg:mauve)\
+$directory\
+[](fg:surface1 bg:surface0)\
+$git_branch\
+$git_status\
+[](fg:surface0 bg:crust)\
+$nodejs\
+$rust\
+$python\
+$c\
+$docker_context\
+[](fg:crust)\
+$fill\
+$cmd_duration\
+$line_break\
+$character"""
+
+palette = "catppuccin_abyss"
+
+[palettes.catppuccin_abyss]
+abyss    = "#08080D"
+crust    = "#0B0B12"
+mantle   = "#11111B"
+base     = "#181825"
+surface0 = "#242430"
+surface1 = "#313244"
+surface2 = "#45475A"
+text     = "#CDD6F4"
+subtext0 = "#A6ADC8"
+mauve    = "#CBA6F7"
+red      = "#F38BA8"
+green    = "#A6E3A1"
+yellow   = "#F9E2AF"
+peach    = "#FAB387"
+blue     = "#89B4FA"
+teal     = "#94E2D5"
+
+[fill]
+symbol = " "
+
+[os]
+disabled = false
+style = "bg:mauve fg:abyss"
+symbols = { Arch = "󰣇 " }
+
+[username]
+show_always = true
+style_user  = "bg:mauve fg:abyss bold"
+style_root  = "bg:red fg:abyss bold"
+format      = "[ $user ]($style)"
+
+[directory]
+style  = "bg:surface1 fg:text"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncate_to_repo  = true
+truncation_symbol = "…/"
+
+[git_branch]
+symbol = " "
+style  = "bg:surface0 fg:mauve"
+format = '[ $symbol$branch ]($style)'
+
+[git_status]
+style  = "bg:surface0 fg:yellow"
+format = '[$all_status$ahead_behind ]($style)'
+
+[nodejs]
+symbol = " "
+style  = "bg:crust fg:green"
+format = '[ $symbol($version) ]($style)'
+
+[rust]
+symbol = "󱘗 "
+style  = "bg:crust fg:peach"
+format = '[ $symbol($version) ]($style)'
+
+[python]
+symbol = " "
+style  = "bg:crust fg:yellow"
+format = '[ $symbol($version) ]($style)'
+
+[c]
+symbol = " "
+style  = "bg:crust fg:blue"
+format = '[ $symbol($version) ]($style)'
+
+[docker_context]
+symbol = " "
+style  = "bg:crust fg:teal"
+format = '[ $symbol$context ]($style)'
+only_with_files = true
+
+[cmd_duration]
+min_time = 2000
+style    = "fg:subtext0"
+format   = "took [$duration]($style) "
+
+[character]
+success_symbol = "[❯](bold mauve)"
+error_symbol   = "[❯](bold red)"
+vimcmd_symbol  = "[❮](bold green)"

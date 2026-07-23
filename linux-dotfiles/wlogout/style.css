@@ -1,0 +1,34 @@
+/* Catppuccin Abyss — wlogout */
+* {
+    font-family: "JetBrainsMonoNerdFontPropo", monospace;
+    background-image: none;
+}
+
+window {
+    background-color: alpha(#08080D, 0.75);
+}
+
+button {
+    color: #CDD6F4;
+    background-color: alpha(#181825, 0.85);
+    border: 1px solid alpha(#CBA6F7, 0.30);
+    border-radius: 18px;
+    margin: 14px;
+    background-repeat: no-repeat;
+    background-position: center 30%;
+    background-size: 26%;
+    transition: all 0.2s ease;
+}
+
+button:focus,
+button:active,
+button:hover {
+    background-color: alpha(#313244, 0.90);
+    border-color: #CBA6F7;
+}
+
+#lock     { background-image: image(url("/usr/share/wlogout/icons/lock.png")); }
+#logout   { background-image: image(url("/usr/share/wlogout/icons/logout.png")); }
+#suspend  { background-image: image(url("/usr/share/wlogout/icons/suspend.png")); }
+#reboot   { background-image: image(url("/usr/share/wlogout/icons/reboot.png")); }
+#shutdown { background-image: image(url("/usr/share/wlogout/icons/shutdown.png")); }

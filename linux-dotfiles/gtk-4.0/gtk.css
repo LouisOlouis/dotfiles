@@ -1,0 +1,16 @@
+/* Catppuccin Abyss — ajustes finos no GTK4 (Nautilus, file pickers) */
+@define-color accent_color #CBA6F7;
+@define-color accent_bg_color #CBA6F7;
+@define-color accent_fg_color #08080D;
+@define-color window_bg_color #181825;
+@define-color window_fg_color #CDD6F4;
+@define-color view_bg_color #11111B;
+@define-color view_fg_color #CDD6F4;
+@define-color headerbar_bg_color #0B0B12;
+@define-color headerbar_fg_color #CDD6F4;
+@define-color sidebar_bg_color #0B0B12;
+@define-color sidebar_fg_color #CDD6F4;
+
+window {
+    border-radius: 12px;
+}
